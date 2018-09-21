@@ -6,13 +6,13 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/detail_appbar"
+        android:id="@+id/detail_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="@dimen/app_bar_elevation">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/detail_toolbar"
+            android:id="@+id/detail_collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
@@ -33,6 +33,14 @@
                     android:background="@drawable/photo_background_protection"/>
 
             </FrameLayout>
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/detail_toolbar_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/app_bar_elevation"/>
+
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

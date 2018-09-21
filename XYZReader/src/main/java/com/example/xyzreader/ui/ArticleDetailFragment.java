@@ -17,8 +17,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ShareCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
@@ -55,6 +59,8 @@ public class ArticleDetailFragment extends Fragment implements
     private ImageView mPhotoView;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
+    //use support action bar for better usability
+    private ActionBar mActionBar;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
@@ -112,6 +118,24 @@ public class ArticleDetailFragment extends Fragment implements
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
+        //init action bar / collapsing toolbar
+        Toolbar toolBar = mRootView.findViewById(R.id.detail_toolbar_main);
+        //get reference to appcompatactivity for setting toolbar params
+        final AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        appCompatActivity.setSupportActionBar(toolBar);
+        mActionBar = appCompatActivity.getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        //set on click listener to navigate back
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appCompatActivity.onSupportNavigateUp();
+            }
+        });
+
+
+
+
 
         mStatusBarColorDrawable = new ColorDrawable(0);
 
@@ -149,9 +173,6 @@ public class ArticleDetailFragment extends Fragment implements
         TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
         bylineView.setMovementMethod(new LinkMovementMethod());
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
-
-
-        bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
             mRootView.setAlpha(0);
